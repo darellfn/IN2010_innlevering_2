@@ -1,17 +1,25 @@
-public class QuickSort {
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
 
+public class QuickSort {
+    int swaps = 0;
+    int comparisons = -1;
+    
     public int[] quickSort(int[] A, int low, int high) {
         if (low >= high) {
             return A;
         }
-
         int p = partition(A, low, high);
         quickSort(A, low, p - 1);
         quickSort(A, p + 1, high);
         return A;
     }
 
-    public int partition(int[] A, int low, int high) {
+    private int partition(int[] A, int low, int high) {
         int p = choosePivot(A, low, high);
         int temp = A[p];
         A[p] = A[high];
@@ -29,18 +37,40 @@ public class QuickSort {
                 right = right - 1;
             }
             if (left < right) {
-                int tempLeft1 = A[left];
+                int innerTempLeft = A[left];
                 A[left] = A[right];
-                A[right] = tempLeft1;
+                A[right] = innerTempLeft;
             }
         }
-        int tempLeft2 = A[left];
+        int tempLeft = A[left];
         A[left] = A[high];
-        A[high] = tempLeft2;
+        A[high] = tempLeft;
         return left;
     }
 
-    public int choosePivot(int[] A, int low, int high) {
-        return high;
+    private int choosePivot(int[] A, int low, int high) {
+        int mid = (low + high) / 2;
+        if (A[low] <= A[mid] && A[mid] <= A[high] || A[low] >= A[mid] && A[mid] >= A[high] ) {
+            return mid;
+        } else if (A[low] >= A[mid] && A[low] <= A[high] || A[low] <= A[mid] && A[low] >= A[high]) {
+            return low;
+        } else {
+            return high;
+        }
+    }
+
+    public void quickWriteToFile(String fileName, int[] sortedList) {
+        try {
+            FileWriter outFile = new FileWriter(fileName + "_quick.out");
+
+            for (int n : sortedList) {
+                outFile.write(n + "\n");
+            }
+            
+            outFile.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
