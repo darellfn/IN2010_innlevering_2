@@ -1,13 +1,9 @@
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 public class QuickSort {
-    int swaps = 0;
-    int comparisons = -1;
+    long swaps = 0;
+    long comparisons = -1;
     
     public int[] quickSort(int[] A, int low, int high) {
         if (low >= high) {
@@ -30,21 +26,27 @@ public class QuickSort {
         int right = high - 1;
 
         while (left <= right) {
+            comparisons += 1;
             while (left <= right && A[left] <= pivot) {
                 left = left + 1;
+                comparisons += 1;
             }
+            comparisons += 1;
             while (right >= left && A[right] >= pivot) {
                 right = right - 1;
+                comparisons += 1;
             }
             if (left < right) {
                 int innerTempLeft = A[left];
                 A[left] = A[right];
                 A[right] = innerTempLeft;
+                swaps += 1;
             }
         }
         int tempLeft = A[left];
         A[left] = A[high];
         A[high] = tempLeft;
+        swaps += 1;
         return left;
     }
 
@@ -72,5 +74,16 @@ public class QuickSort {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public long getSwaps() {
+        return swaps;
+    }
+
+    public long getComparisons() {
+        if (comparisons == -1) {
+            return 0;
+        }
+        return comparisons;
     }
 }

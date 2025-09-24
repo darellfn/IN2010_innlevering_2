@@ -1,13 +1,9 @@
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 public class HeapSort {
-    int swaps = 0;
-    int comparisons = -1;
+    long swaps = 0;
+    long comparisons = -1;
 
     public int[] heapSort(int[] A) {
         buildMaxHeap(A, A.length);
@@ -25,9 +21,11 @@ public class HeapSort {
         int left = 2*i + 1;
         int right = 2*i + 2;
 
+        comparisons += 1;
         if (left < n && A[largest] < A[left]) {
             largest = left;
         }
+        comparisons += 1;
         if (right < n && A[largest] < A[right]) {
             largest = right;
         }
@@ -35,6 +33,7 @@ public class HeapSort {
             int temp = A[i];
             A[i] = A[largest];
             A[largest] = temp;
+            swaps += 1;
             bubbleDown(A, largest, n);
         }
         return A;
@@ -60,5 +59,16 @@ public class HeapSort {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public long getSwaps() {
+        return swaps;
+    }
+
+    public long getComparisons() {
+        if (comparisons == -1) {
+            return 0;
+        }
+        return comparisons;
     }
 }

@@ -1,21 +1,19 @@
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 public class BubbleSort {
-    int swaps = 0;
-    int comparisons = -1;
+    long swaps = 0;
+    long comparisons = -1;
     
     public int[] bubbleSort(int[] A) {
         for (int i = 0; i < A.length - 1; i++) {
             for (int j = 0; j < A.length - i - 1; j++) {
+                comparisons += 1;
                 if (A[j] > A[j + 1]) {
                     int temp = A[j];
                     A[j] = A[j + 1];
                     A[j + 1] = temp;
+                    swaps += 1;
                 }
             }
         }
@@ -35,5 +33,16 @@ public class BubbleSort {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public long getSwaps() {
+        return swaps;
+    }
+
+    public long getComparisons() {
+        if (comparisons == -1) {
+            return 0;
+        }
+        return comparisons;
     }
 }

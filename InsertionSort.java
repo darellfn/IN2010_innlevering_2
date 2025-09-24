@@ -1,13 +1,9 @@
-import java.util.Scanner;
-import java.util.ArrayList;
-import java.io.File;
 import java.io.FileWriter;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class InsertionSort {
-    int swaps = 0;
-    int comparisons = -1;
+    long swaps = 0;
+    long comparisons = -1;
 
     public int[] insertionSort(int[] A) {
         for (int i = 1; i < A.length; i++) {
@@ -39,5 +35,16 @@ public class InsertionSort {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public long getSwaps() {
+        return swaps;
+    }
+
+    public long getComparisons() {
+        if (comparisons == -1) {
+            return 0;
+        }
+        return comparisons;
     }
 }
