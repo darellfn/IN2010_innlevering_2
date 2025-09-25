@@ -6,6 +6,7 @@
 
 3. Deretter ber terminalen deg om å skrive inn navnet til filen + extension, f.eks. input.txt
 
+NB! inputfilene må ligge i samme directory/mappe som alle filene i dette programmet!
 
 # Eksperimenter og refleksjoner
 
